@@ -63,8 +63,7 @@ if __name__ == "__main__":
         tchoice = input("\nDo you want to add a timer? [y/n]: ").lower()
         if tchoice == 'y':
             timer()
-        else:
-            continue
+        
         option = input("\nDo you want to generate another quiz? [y/n]: \n").lower()
         if option == 'y':
             continue
