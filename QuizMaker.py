@@ -1,0 +1,80 @@
+import random
+import time
+from playsound import playsound
+
+
+def single_chapter():       #This function asks user how many chapters that they want to review
+    qlst ={}
+    chap = int(input(f"What chapter are you covering?: "))
+    sval = int(input(f"How many questions are in the chapter {chap}: "))
+    qlst[chap] = sval
+    return qlst
+    
+
+def multiple_chapters(num1, num2):        #This for loop is the amount of chapters that the user wants to review
+    num_lst = {}
+    for key in range(num1,(num2 + 1)):    #This for loop uses the numbers that the user input and then assigns a the number of questions for each chapter in a dictionary
+        value = int(input(f"How many questions are in the chapter {key}: "))
+        num_lst[key] = value
+    key += 1
+    return num_lst
+    
+    
+def generate_quiz(dict):        #This function uses the dictionary created and randomly generates a quiz based how many questions user wants
+    quiz_question_num = int(input("\nHow many questions do you want to make?: \n"))
+    for question in range(1,(quiz_question_num + 1)): #The +1 is to make the range inclusive so it grabs all the questions
+        random_dict_choice = random.choice(list(dict.items()))      #This converts the dictionary into a list of tuples which then is randomized 
+        random_question = random.choice(range(1, (random_dict_choice[1] + 1)))  #This uses the value from the converted dictionary to give the program a range to choose a random question
+        print(f'Question #{question}: Chapter: {random_dict_choice[0]} Problem: {random_question}')
+
+
+def timer():                    # A very simple timer function that allows the test to be timed
+    t = int(input("\nHow long do you want the timer to be (In seconds!): "))
+    while t:
+        mins = t // 60
+        secs = t % 60
+        timer = '{:02d}:{:02d}'.format(mins, secs)
+        print(timer, end="\r")
+        time.sleep(1)
+        t -= 1
+    playsound("Timer.mp3") #Make sure the version of playsound is 1.2.2 (IT BREAKS IF IT IS NOT) 
+
+
+def main():
+    question = input("Do you want to review multiple chapters? (y/n): ").lower()
+    if question == 'n':
+        a = single_chapter()
+        generate_quiz(a)
+    
+    elif question == 'y':
+        start_queston_num = int(input("\nEnter starting chapter: "))
+        end_question_num = int(input("Enter ending chapter: "))
+        chapters = multiple_chapters(start_queston_num, end_question_num)
+        generate_quiz(chapters)
+    
+    else:
+        print("Enter a valid choice")
+        main()
+
+
+if __name__ == "__main__":
+    while True:
+        main()
+        tchoice = input("\nDo you want to add a timer? [y/n]: ").lower()
+        if tchoice == 'y':
+            timer()
+        else:
+            continue
+        option = input("\nDo you want to generate another quiz? [y/n]: \n").lower()
+        if option == 'y':
+            continue
+        
+        elif option == 'n':
+            break
+
+    print("Goodbye")
+    input("Press any button to exit")
+
+#TODO Add a way for the user to enter their own questions so it's a bit more personalized 
+#TODO Make the program not output duplicates of the same question
+#TODO Add a gui
