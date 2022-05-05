@@ -26,6 +26,7 @@ def multiple_chapters(num1, num2):
 
 # This function uses the dictionary created and randomly generates a quiz based how many questions user wants
 def generate_quiz(dict, sum=0):
+    # This just gathers the total number of questions possible
     a = list(dict.values())
     for value in a:
         sum += value
