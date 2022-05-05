@@ -108,3 +108,4 @@ if __name__ == "__main__":
 
 #TODO Add a way for the user to enter their own questions so it's a bit more personalized 
 #TODO Add a gui
+#TODO Make Timer a bit more user friendly
