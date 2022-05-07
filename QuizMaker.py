@@ -1,5 +1,6 @@
 import random
 import time
+import datetime
 from playsound import playsound
 
 
@@ -61,15 +62,13 @@ def display_questions(tlist, counter=1):
 
 
 # A very simple timer function that allows the test to be timed
-def timer():
-    t = int(input("\nHow long do you want the timer to be (In seconds!): "))
-    while t:
-        mins = t // 60
-        secs = t % 60
-        timer = '{:02d}:{:02d}'.format(mins, secs)
+def timer(h,m,s):
+    total_seconds = h * 3600 + m * 60 + s
+    while total_seconds > 0:
+        timer = datetime.timedelta(seconds = total_seconds)
         print(timer, end="\r")
         time.sleep(1)
-        t -= 1
+        total_seconds -= 1
     playsound("Timer.mp3")  # Make sure the version of playsound is 1.2.2 (IT BREAKS IF IT IS NOT)
 
 
@@ -95,7 +94,10 @@ if __name__ == "__main__":
         main()
         tchoice = input("\nDo you want to add a timer? [y/n]: ").lower()
         if tchoice == 'y':
-            timer()
+            h = int(input("How many hours in your time?: "))
+            m = int(input("How many minutes in your time?: "))
+            s = int(input("How may seconds in your time?: "))
+            timer(h, m, s)
         
         option = input("\nDo you want to generate another quiz? [y/n]: \n").lower()
         if option == 'y':
@@ -109,4 +111,4 @@ if __name__ == "__main__":
 
 #TODO Add a way for the user to enter their own questions so it's a bit more personalized 
 #TODO Add a gui
-#TODO Make Timer a bit more user friendly
+
